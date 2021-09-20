@@ -1,3 +1,17 @@
-import {test} from './server'
+import express from "express";
 
-test();
+import server from "./server"
+
+
+const app = express();
+
+
+const PORT = 4444;
+
+server.applyMiddleware({ app });
+
+app.listen({ port: PORT }, () => {
+  console.log(
+    `🚀  Server ready at http://localhost:${PORT}${server.graphqlPath}`
+  );
+});

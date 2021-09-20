@@ -1,6 +1,3 @@
-import { gql } from "apollo-server-express";
-
- const typeDefs = gql`
   type Query {
     me: User!
     user(id: ID!): User
@@ -10,6 +7,3 @@ import { gql } from "apollo-server-express";
     id: ID!
     name: String!
   }
-`;
-
-export default typeDefs

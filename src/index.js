@@ -1,17 +1,33 @@
+import dotenv from 'dotenv'
+dotenv.config()
 import express from "express";
+import mongoose from "mongoose";
 
-import server from "./server"
+import server from "./server";
+
+const { DB_USER, DB_PASSWORD, DB_NAME, PORT} = process.env
+
+const createServer = async () => {
+  try {
+    await mongoose.connect(
+      `mongodb+srv://${DB_USER}:${DB_PASSWORD}@typescript.hqt3i.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`
+    , {useUnifiedTopology: true});
+    const app = express();
+
+    
+
+    server.applyMiddleware({ app });
+
+    app.listen({ port: PORT }, () => {
+      console.log(
+        `🚀  Server ready at http://localhost:${PORT}${server.graphqlPath}`
+      );
+    });
+  } catch (error) {
+    console.log(error)
+  }
+};
+
+createServer()
 
 
-const app = express();
-
-
-const PORT = 4444;
-
-server.applyMiddleware({ app });
-
-app.listen({ port: PORT }, () => {
-  console.log(
-    `🚀  Server ready at http://localhost:${PORT}${server.graphqlPath}`
-  );
-});
